@@ -41,5 +41,42 @@ public class TodoItemsController : ControllerBase
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
     }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<TodoItem>> PutTodoItem(
+        [FromRoute] long id,
+        [FromBody] TodoItem todoItem
+        )
+    {
+        if (id != todoItem.Id)
+        {
+            return BadRequest();
+        }
+
+        _context.Entry(todoItem).State = EntityState.Modified;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!TodoItemExists(id))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        return NoContent();
+    }
+
+    private bool TodoItemExists(long id)
+    {
+        return _context.TodoItem.Any(e => e.Id == id);
+    }
 }
 
