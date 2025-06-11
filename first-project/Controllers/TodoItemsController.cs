@@ -33,5 +33,13 @@ public class TodoItemsController : ControllerBase
 
         return Ok(todoItem);
     }
+
+    [HttpPost]
+    public async Task<ActionResult<TodoItem>> PostTodoItem([FromBody] TodoItem todoItem)
+    {
+        _context.TodoItem.Add(todoItem);
+        await _context.SaveChangesAsync();
+        return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
+    }
 }
 
