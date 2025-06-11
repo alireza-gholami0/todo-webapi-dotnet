@@ -74,6 +74,19 @@ public class TodoItemsController : ControllerBase
         return NoContent();
     }
 
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<TodoItem>> DeleteTodoItem([FromRoute] long id)
+    {
+        var todoItem = await _context.TodoItem.FindAsync(id);
+        if (todoItem == null)
+        {
+            return NotFound();
+        }
+        _context.TodoItem.Remove(todoItem);
+        await _context.SaveChangesAsync();
+        return Ok(todoItem);
+    }
+
     private bool TodoItemExists(long id)
     {
         return _context.TodoItem.Any(e => e.Id == id);
