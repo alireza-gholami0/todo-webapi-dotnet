@@ -1,0 +1,34 @@
+﻿@FirstProject_HostAddress = http://localhost:5179
+@id=1
+GET {{FirstProject_HostAddress}}/api/todoitems
+
+###
+
+POST {{FirstProject_HostAddress}}/api/todoitems
+Content-Type: application/json
+
+{
+  "title": "Sample Todo Item",
+  "isComplete": false
+}
+
+###
+
+GET {{FirstProject_HostAddress}}/api/todoitems/{{id}}
+
+###
+
+PUT {{FirstProject_HostAddress}}/api/todoitems/{{id}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "Uptadet Todo Item",
+  "isComplete": true
+}
+
+###
+
+DELETE {{FirstProject_HostAddress}}/api/todoitems/{{id}}
+
+###
