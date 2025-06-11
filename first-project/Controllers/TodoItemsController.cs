@@ -20,5 +20,18 @@ public class TodoItemsController : ControllerBase
     {
         return await _context.TodoItem.ToListAsync();
     }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<TodoItem>> GetTodoItem([FromRoute] long id)
+    {
+        var todoItem = await _context.TodoItem.FindAsync(id);
+
+        if (todoItem == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(todoItem);
+    }
 }
 
