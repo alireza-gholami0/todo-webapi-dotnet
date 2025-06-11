@@ -1,0 +1,11 @@
+@first-project_HostAddress = http://localhost:5179
+@first_project_HostAddress = http://localhost:5179
+
+GET {{first_project_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{first-project_HostAddress}}/weatherforecast
+
+###
