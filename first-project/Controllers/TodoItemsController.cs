@@ -1,5 +1,6 @@
 ﻿using first_project.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace first_project.Controllers;
 
@@ -12,6 +13,12 @@ public class TodoItemsController : ControllerBase
     public TodoItemsController(TodoContext context)
     {
         _context = context;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
+    {
+        return await _context.TodoItem.ToListAsync();
     }
 }
 
