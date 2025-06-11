@@ -8,6 +8,6 @@ namespace first_project.Models
         {
         }
 
-        DbSet<TodoItem> TodoItem { get; set; } = null!;
+        public DbSet<TodoItem> TodoItem { get; set; } = null!;
     }
 }
