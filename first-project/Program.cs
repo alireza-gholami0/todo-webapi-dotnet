@@ -3,18 +3,22 @@ using first_project.Models;
 using first_project.Configurations;
 using MongoDB.Driver;
 using first_project.Infrastructure;
+using first_project.Repositories.Interfaces;
+using first_project.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.Configure<MongoDbSettings>(
-    builder.Configuration.GetSection("MongoDbSettings"));
+    builder.Configuration.GetSection("MongoDbSetting"));
 
 builder.Services.AddSingleton<MongoClientFactory>();
 builder.Services.AddSingleton<IMongoClient>(sp =>
 {
     return sp.GetRequiredService<MongoClientFactory>().GetClient();
 });
+
+builder.Services.AddSingleton<ITodoRepository, TodoRepository>();
 
 
 
