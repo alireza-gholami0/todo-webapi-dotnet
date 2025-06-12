@@ -6,7 +6,7 @@ namespace first_project.Infrastructure
 {
     public class MongoClientFactory
     {
-        private IMongoClient _client;
+        private readonly IMongoClient _client;
 
         public MongoClientFactory(IOptions<MongoDbSettings> options)
         {
