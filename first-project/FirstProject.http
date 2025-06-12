@@ -1,5 +1,5 @@
 ﻿@FirstProject_HostAddress = http://localhost:5179
-@id=1
+@id=684b45a3ab77fcc31150eb6a
 GET {{FirstProject_HostAddress}}/api/todoitems
 
 ###
@@ -22,7 +22,7 @@ PUT {{FirstProject_HostAddress}}/api/todoitems/{{id}}
 Content-Type: application/json
 
 {
-  "id": 1,
+  "id": "684b52338054ba3536ec062b",
   "title": "Uptadet Todo Item",
   "isComplete": true
 }
