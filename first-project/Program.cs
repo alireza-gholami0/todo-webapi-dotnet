@@ -5,6 +5,7 @@ using MongoDB.Driver;
 using first_project.Infrastructure;
 using first_project.Repositories.Interfaces;
 using first_project.Repositories;
+using first_project.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,7 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
 });
 
 builder.Services.AddSingleton<ITodoRepository, TodoRepository>();
-
+builder.Services.AddSingleton<TodoService>();
 
 
 builder.Services.AddDbContext<TodoContext>(options =>

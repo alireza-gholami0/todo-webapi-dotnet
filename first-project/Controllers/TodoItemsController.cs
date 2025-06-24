@@ -1,5 +1,5 @@
 ﻿using first_project.Models;
-using first_project.Repositories.Interfaces;
+using first_project.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,23 +9,23 @@ namespace first_project.Controllers;
 [ApiController]
 public class TodoItemsController : ControllerBase
 {
-    private readonly ITodoRepository _todoRepository;
+    private readonly TodoService _todoService;
 
-    public TodoItemsController(ITodoRepository todoRepository)
+    public TodoItemsController(TodoService todoService)
     {
-        _todoRepository = todoRepository;
+        _todoService = todoService;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
     {
-        return await _todoRepository.GetAll();
+        return await _todoService.GetAllTodoItems();
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<TodoItem>> GetTodoItem([FromRoute] string id)
     {
-        var todoItem = await _todoRepository.GetById(id);
+        var todoItem = await _todoService.GetTodoItemById(id);
 
         if (todoItem == null)
         {
@@ -38,7 +38,7 @@ public class TodoItemsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<TodoItem>> PostTodoItem([FromBody] TodoItem todoItem)
     {
-        await _todoRepository.Create(todoItem);
+        await _todoService.CreateTodoItem(todoItem);
         return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
     }
 
@@ -53,7 +53,7 @@ public class TodoItemsController : ControllerBase
             return BadRequest();
         }
 
-        await _todoRepository.Update(id, todoItem);
+        await _todoService.UpdateTodoItem(id, todoItem);
 
         return NoContent();
     }
@@ -61,12 +61,12 @@ public class TodoItemsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<TodoItem>> DeleteTodoItem([FromRoute] string id)
     {
-        var todoItem = await _todoRepository.GetById(id);
+        var todoItem = await _todoService.DeleteTodoItem(id);
         if (todoItem == null)
         {
             return NotFound();
         }
-        await _todoRepository.Delete(id);
+
         return Ok(todoItem);
     }
 }
