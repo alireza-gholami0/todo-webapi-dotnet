@@ -1,5 +1,5 @@
 ﻿@FirstProject_HostAddress = http://localhost:5179
-@id=684b45a3ab77fcc31150eb6a
+@id=685aba262b4873617d2399ac
 GET {{FirstProject_HostAddress}}/api/todoitems
 
 ###
@@ -30,5 +30,29 @@ Content-Type: application/json
 ###
 
 DELETE {{FirstProject_HostAddress}}/api/todoitems/{{id}}
+
+###
+
+GET {{FirstProject_HostAddress}}/api/user
+
+###
+
+POST {{FirstProject_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+    "Name": "Reza",
+    "Email": "reza@mail.com",
+    "Password": "123"
+}
+
+###
+
+PUT {{FirstProject_HostAddress}}/api/user/{{id}}/name
+Content-Type: application/json
+
+{
+    "Name": "Reza Updated"
+}
 
 ###

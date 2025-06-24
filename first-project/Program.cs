@@ -22,6 +22,8 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
 builder.Services.AddSingleton<ITodoRepository, TodoRepository>();
 builder.Services.AddSingleton<TodoService>();
 
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<UserService>();
 
 builder.Services.AddDbContext<TodoContext>(options =>
    options.UseInMemoryDatabase("TodoList"));
