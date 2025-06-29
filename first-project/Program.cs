@@ -25,11 +25,19 @@ builder.Services.AddSingleton<TodoService>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<UserService>();
 
+builder.Services.AddSingleton<AuthService>();
+
 builder.Services.AddDbContext<TodoContext>(options =>
    options.UseInMemoryDatabase("TodoList"));
 
 
 builder.Services.AddControllers();
+
+builder.Services.AddAuthentication()
+    .AddJwtBearer(options =>
+    {
+
+    });
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 

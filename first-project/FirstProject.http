@@ -1,5 +1,5 @@
 ﻿@FirstProject_HostAddress = http://localhost:5179
-@id=685aba262b4873617d2399ac
+@id=685ab385375f9be32ea3fabc
 GET {{FirstProject_HostAddress}}/api/todoitems
 
 ###
@@ -22,7 +22,7 @@ PUT {{FirstProject_HostAddress}}/api/todoitems/{{id}}
 Content-Type: application/json
 
 {
-  "id": "684b52338054ba3536ec062b",
+  "id": "685ab385375f9be32ea3fabc",
   "title": "Uptadet Todo Item",
   "isComplete": true
 }
@@ -42,7 +42,7 @@ Content-Type: application/json
 
 {
     "Name": "Reza",
-    "Email": "reza@mail.com",
+    "Email": "rezaaa@mail.com",
     "Password": "123"
 }
 
@@ -53,6 +53,27 @@ Content-Type: application/json
 
 {
     "Name": "Reza Updated"
+}
+
+###
+
+POST {{FirstProject_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+    "Email": "rezaaa@mail.com",
+    "Password": "123"
+}
+
+###
+
+POST {{FirstProject_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+    "Name": "Reza",
+    "Email": "reza@mail.com",
+    "Password": "123"
 }
 
 ###
