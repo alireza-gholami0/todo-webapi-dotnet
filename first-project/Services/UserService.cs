@@ -24,7 +24,7 @@ namespace first_project.Services
         }
         public async Task CreateUser(User user)
         {
-            var existingUser = _userRepository.GetByEmail(user.Email);
+            var existingUser = await GetByEmail(user.Email);
             if (existingUser != null)
             {
                 throw new InvalidOperationException($"User with email '{user.Email}' already exists.");
@@ -52,6 +52,10 @@ namespace first_project.Services
             }
             await _userRepository.Delete(id);
             return user;
+        }
+        public async Task<User?> GetByEmail(string email)
+        {
+            return await _userRepository.GetByEmail(email);
         }
     }
 }
