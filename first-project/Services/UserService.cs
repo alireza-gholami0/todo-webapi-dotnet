@@ -1,5 +1,5 @@
 ﻿using first_project.Models;
-using first_project.Models.DTOs;
+using first_project.Models.DTOs.User;
 using first_project.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
