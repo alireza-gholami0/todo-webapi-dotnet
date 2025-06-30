@@ -1,11 +1,13 @@
 ﻿using first_project.Models;
 using first_project.Models.DTOs.User;
 using first_project.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace first_project.Controllers
 {
+    [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -43,15 +45,15 @@ namespace first_project.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPut("{id}/name")]
+        [HttpPut("{id}")]
         public async Task<ActionResult<User>> PutUser(
             [FromRoute] string id,
-            [FromBody] EditUserNameDto editUserNameDto
+            [FromBody] EditUserDto editUserDto
             )
         {
             try
             {
-                await _userService.UpdateUserName(id, editUserNameDto);
+                await _userService.UpdateUserName(id, editUserDto);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

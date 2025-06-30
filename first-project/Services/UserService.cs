@@ -33,14 +33,15 @@ namespace first_project.Services
             user.Password = _passwordHasher.HashPassword(user, user.Password);
             await _userRepository.Create(user);
         }
-        public async Task UpdateUserName(string id, EditUserNameDto editUserNameDto)
+        public async Task UpdateUserName(string id, EditUserDto editUserDto)
         {
             var user = await _userRepository.GetById(id);
             if (user == null)
             {
                 throw new KeyNotFoundException($"User with id '{id}' not found.");
             }
-            user.Name = editUserNameDto.Name;
+            user.Name = editUserDto.Name;
+            user.Role = editUserDto.Role;
             await _userRepository.Update(id, user);
         }
         public async Task<User?> DeleteUser(string id)
