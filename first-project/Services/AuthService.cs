@@ -56,7 +56,8 @@ namespace first_project.Services
             var jwtSetting = _configuration.GetSection("JWT");
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id ?? "")
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id!),
+                new Claim("role", user.Role.ToString())
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSetting["key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
