@@ -1,11 +1,13 @@
-using Microsoft.EntityFrameworkCore;
-using first_project.Models;
 using first_project.Configurations;
-using MongoDB.Driver;
 using first_project.Infrastructure;
-using first_project.Repositories.Interfaces;
+using first_project.Models;
 using first_project.Repositories;
+using first_project.Repositories.Interfaces;
 using first_project.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using MongoDB.Driver;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,10 +36,19 @@ builder.Services.AddDbContext<TodoContext>(options =>
 builder.Services.AddControllers();
 
 builder.Services.AddAuthentication()
-    .AddJwtBearer(options =>
+.AddJwtBearer(jwtOptions =>
+{
+    jwtOptions.TokenValidationParameters = new TokenValidationParameters
     {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+    };
+});
 
-    });
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -50,6 +61,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
