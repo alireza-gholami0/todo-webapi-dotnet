@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Text.Json.Serialization;
 
 namespace first_project.Models
 {
@@ -17,5 +18,10 @@ namespace first_project.Models
 
         [BsonElement("Password")]
         public required string Password { get; set; }
+
+        [BsonElement("Role")]
+        [BsonRepresentation(BsonType.String)]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public UserRole Role { get; set; } = UserRole.user;
     }
 }
